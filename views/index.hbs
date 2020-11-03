@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/7fdfda6be7.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>BÉ TẬP TÍNH</h1>
+    <br>
+    <form name="myform" action="/" method="POST">
+        <table cellpadding="5" cellspacing="5" style="float: left;">
+            <tr>
+                <td><label>Số thứ nhất</label></td>
+                <td><input name="first_TextBox_Value" id="value1" autofocus="autofocus" value="{{num1}}"></td>
+            </tr>
+            <tr>
+                <td><label>Số thứ hai</label></td>
+                <td><input name="second_TextBox_Value" id="value2" value="{{num2}}"></td>
+            </tr>
+            <tr>
+                <td><label>Kết quả</label></td>
+                <td><input name="res_TextBox_Value" id="res_TextBox" value="{{result}}"></td>
+            </tr>
+        <table cellpadding="5" cellspacing="5" style="float: left;" onsubmit="return false">
+            <tr>
+                <td><input type="radio" name="math_Operators" onclick="reset_Operators();" value="add" />   <label style="color:black;">Cộng</label></td>
+                <td><input type="radio" name="math_Operators" onclick="reset_Operators();" value="sub" />   <label style="color:black;">Trừ</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="math_Operators" onclick="reset_Operators();" value="mul" />   <label style="color:black;">Nhân</label></td>
+                <td><input type="radio" name="math_Operators" onclick="reset_Operators();" value="div" />   <label style="color:black;">Chia</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Tính" onclick="calc()"></td>
+            </tr>
+        </table>
+        <table cellpadding="5" cellspacing="5" style="clear: both; float: left; display: block; position: relative;">
+            <tr>
+                <td>Thông báo:</td>
+                <td>
+                    <div id="tb" style="color: red;"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function calc(){
+            var num1 = document.getElementById("value1").value;
+            var num2 = document.getElementById("value2").value;
+            const a = parseFloat(document.querySelector("#value1").value);
+            const b = parseFloat(document.querySelector("#value2").value);
+            var op = document.getElementsByName("math_Operators");
+            var calculate;
+
+            if (num1 == "" || num2 == "") {
+                document.querySelector("#tb").innerHTML = "Vui lòng nhập cả 2 số"
+                event.preventDefault();
+            }
+            if(isNaN(num1)){
+                document.querySelector("#tb").innerHTML = "Giá trị nhập ở ô thứ nhất KHÔNG phải là số"
+                event.preventDefault();
+            }
+            if(isNaN(num2)){
+                document.querySelector("#tb").innerHTML = "Giá trị nhập ở ô thứ hai KHÔNG phải là số"
+                event.preventDefault();
+            }
+            if(op[3].checked==true && b == 0)
+            {
+                document.querySelector("#tb").innerHTML = "Số chia không thể là 0"
+                event.preventDefault();
+            }
+            if(op[0].checked == false && op[1].checked == false && op[2].checked == false && op[3].checked == false) {
+                document.querySelector("#tb").innerHTML = "Bạn chưa chọn phép tính"
+                event.preventDefault();
+            }
+            myform.res_TextBox.value = '';
+            document.getElementsByName("myform").submit();
+        }
+        function reset_Operators() {
+        myform.res_TextBox.value = '';
+        }
+        
+
+    </script>
+</body>
+</html>
